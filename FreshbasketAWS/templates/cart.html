@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        :root {
+            --primary-color: #38b2ac;
+            --secondary-color: #2c7a7b;
+            --light-color: #e6fffa;
+            --dark-color: #234e52;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav.main-menu {
+            margin-bottom: 30px;
+        }
+        
+        nav.main-menu ul {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            list-style: none;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+        
+        nav.main-menu a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        nav.main-menu a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .cart-items {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--light-color);
+            font-weight: 600;
+        }
+        
+        .checkout-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .checkout-section h3 {
+            margin-top: 0;
+            color: var(--dark-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .confirmation-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .flashes {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .flashes li {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Shopping Cart</h1>
+        </header>
+        
+        <nav class="main-menu">
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="/cart">Cart</a></li>
+                <li><a href="/user_dashboard">Dashboard</a></li>
+            </ul>
+        </nav>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <div class="cart-container">
+            <div class="cart-items">
+                {% if cart_items %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>${{ "%.2f"|format(item.price) }}</td>
+                            <td>${{ "%.2f"|format(item.price * item.quantity) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="empty-cart">
+                    <h3>Your cart is empty</h3>
+                    <p>Start shopping to add items to your cart</p>
+                    <a href="/items" class="button">Browse Products</a>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if cart_items %}
+            <div class="checkout-section">
+                <h3>Order Summary</h3>
+                <p>Total Items: {{ cart_items|length }}</p>
+                <p>Subtotal: ${{ "%.2f"|format(total_price) }}</p>
+                
+                <div class="form-group">
+                    <label for="deliveryAddress">Delivery Address</label>
+                    <select id="deliveryAddress" onchange="toggleNewAddress()">
+                        <option value="default">Default Address</option>
+                        <option value="new">New Address</option>
+                    </select>
+                </div>
+                
+                <div id="newAddressContainer" style="display: none;">
+                    <div class="form-group">
+                        <label for="newAddress">Enter New Address</label>
+                        <textarea id="newAddress" rows="3"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="paymentMethod">Payment Method</label>
+                    <select id="paymentMethod">
+                        <option value="cod">Cash on Delivery</option>
+                    </select>
+                </div>
+                
+                <button onclick="placeOrder()">Place Order</button>
+                
+                <div class="confirmation-message" id="confirmationMessage">
+                    <h3>Thank you for your order!</h3>
+                    <p>Your items will be delivered soon.</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+
+    function toggleNewAddress() {
+        const addressType = document.getElementById("deliveryAddress").value;
+        const newAddressContainer = document.getElementById("newAddressContainer");
+        newAddressContainer.style.display = addressType === "new" ? "block" : "none";
+    }
+
+    async function placeOrder() {
+        const deliveryDropdown = document.getElementById("deliveryAddress");
+        const newAddressInput = document.getElementById("newAddress");
+
+        let address = deliveryDropdown.value === "new" ? newAddressInput.value.trim() : "default_address";
+    }
+    
+        // Validate new address input
+        if (deliveryDropdown.value === "new" && address === "") {
+            alert("Please enter a new delivery address.");
+            return;
+        }
+        
+    function toggleNewAddress() {
+        const addressType = document.getElementById("deliveryAddress").value;
+        const newAddressContainer = document.getElementById("newAddressContainer");
+        newAddressContainer.style.display = addressType === "new" ? "block" : "none";
+    }
+
+    async function placeOrder() {
+        const address = document.getElementById("deliveryAddress").value === "new"
+            ? document.getElementById("newAddress").value
+            : "default_address";
+
+        const paymentMethod = document.getElementById("paymentMethod").value;
+
+        // Correctly assigning Jinja variables inside a script tag
+        const cartItems = JSON.parse('{{ cart_items | tojson | safe }}') || [];
+        const totalPrice = JSON.parse('{{ total_price | tojson }}') || 0;
+
+        try {
+            const response = await fetch('/place_order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    address: address,
+                    payment_method: paymentMethod,
+                    items: cartItems,
+                    total_price: totalPrice
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                document.getElementById('confirmationMessage').style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = '/user_dashboard';
+                }, 3000);
+            } else {
+                alert('Order failed: ' + (data.message || 'Please try again'));
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while placing your order. Please try again.');
+        }
+    }
+    </script>

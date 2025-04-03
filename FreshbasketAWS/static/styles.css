@@ -1,0 +1,231 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif; /* Cute and modern font */
+    background-color: #f4fbf4; /* Soft, subtle green background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    color: #2c7a7b; /* Rich greenish-blue */
+}
+
+a {
+    text-decoration: none;
+    color: #38b2ac; /* Teal link color */
+}
+
+a:hover {
+    color: #2a9d8f; /* Darker teal on hover */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #81c784; /* Light green header */
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+nav.main-menu {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+nav.main-menu ul {
+    list-style-type: none;
+}
+
+nav.main-menu ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav.main-menu ul li a {
+    color: #2c7a7b;
+    font-weight: bold;
+}
+
+nav.main-menu ul li a:hover {
+    color: #1b5e20; /* Darker green on hover */
+}
+
+/* Form Styles */
+form {
+    background-color: #e8f5e9; /* Pale green form background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+input[type="text"], input[type="password"], input[type="email"], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #81c784; /* Greenish border */
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #66bb6a; /* Medium green button */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #388e3c; /* Darker green on hover */
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 15px;
+    border-bottom: 2px solid #c8e6c9; /* Soft green border */
+    text-align: left;
+}
+
+table th {
+    background-color: #66bb6a; /* Green header */
+    color: white;
+    font-weight: bold;
+}
+
+table td {
+    background-color: #f4fbf4; /* Very light green for table rows */
+}
+
+/* Cart & Checkout Page */
+.checkout-form, .cart-summary {
+    background-color: #e8f5e9;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.checkout-form h3, .cart-summary h3 {
+    color: #388e3c; /* Dark green headings */
+}
+
+.checkout-form select, .cart-summary select {
+    width: 50%;
+}
+
+.checkout-form button {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+}
+
+/* Admin Dashboard */
+.admin-section {
+    background-color: #f4fbf4;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.admin-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.admin-section table {
+    width: 100%;
+}
+
+.admin-section select {
+    padding: 8px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #66bb6a;
+}
+
+/* Flash Messages */
+.flash-message {
+    background-color: #81c784; /* Light green background */
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Confirmation Message */
+.confirmation-message {
+    background-color: #81c784;
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav.main-menu ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    form {
+        max-width: 100%;
+    }
+
+    .checkout-form select {
+        width: 100%;
+    }
+}
+/* Add to styles.css */
+.item {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.items-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.item {
+    flex: 1 1 calc(33.333% - 20px); /* 3 columns */
+    box-sizing: border-box;
+}

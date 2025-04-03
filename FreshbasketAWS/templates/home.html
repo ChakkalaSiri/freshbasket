@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        /* Updated Color Palette */
+        body {
+            background-color: #fafafa; /* Light greenish background for freshness */
+            font-family: Arial, sans-serif;
+        }
+        header h1 {
+            color: #04612e; /* Dark fresh green */
+        }
+        header h2 {
+            color: #065429; /* Slightly lighter green */
+        }
+        .hero-image {
+            width: calc(100% - 40px); /* Adds space on the left and right */
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+            margin: 0 20px; /* Space on both sides */
+        }
+        .about-us, .fresh-points, .happy-customers {
+            margin: 20px 0;
+            text-align: center; /* Center-align content */
+        }
+        .about-us img, .fresh-points img, .happy-customers img {
+            width: calc(100% - 40px); /* Adds space on the sides */
+            height: auto;
+            max-height: 300px;
+            object-fit: cover;
+            margin: 0 20px;
+        }
+        .points-list {
+            list-style-type: none;
+            padding: 0;
+            color: #0a6c2e; /* Fresh green for text */
+        }
+        .points-list li {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .happy-customers img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+        .button {
+            display: inline-block;
+            background-color: #52b788; /* Fresh green button */
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #f8f849; /* Darker fresh green on hover */
+        }
+        .flash-messages p {
+            color: red;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #2d6a4f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to FreshBasket</h1>
+            <h2>Your Go-To for Premium Fruits & Veggies</h2>
+        </header>
+        
+        <div class="content" style="text-align: center;">
+            <img src="/static/img/freshbasket.jpg" alt="Fresh Fruits and Vegetables" class="hero-image">
+            <p>Welcome! Please choose an option below:</p>
+            <a href="/register" class="button">Register</a>
+            <a href="/login" class="button">Login</a>
+        </div>
+        <div class="about-us">
+            <h3>About Us</h3>
+            <img src="static/img/Why-Organic.jpg" alt="About Us">
+            <p><strong>At FreshBasket, we are committed to bringing you the freshest and most organic fruits and vegetables. Our mission is to provide high-quality produce while supporting sustainable and ethical farming practices.</strong></p>
+        </div>
+        <div class="fresh-points">
+            <h3>Why Choose FreshBasket?</h3>
+            <ul class="points-list">
+                <li>100% Organic and Fresh Produce</li>
+                <li>Locally Sourced from Trusted Farms</li>
+                <li>Eco-Friendly Packaging</li>
+                <li>Excellent Customer Service</li>
+                <li>Affordable Prices for Premium Quality</li>
+            </ul>
+            <img src="static/img/delivery.jpg" alt="Fresh Points">
+        </div>
+        <div class="happy-customers">
+            <h3>Happy Customers</h3>
+            <div>
+                <p>"FreshBasket always delivers high-quality produce. I'm a regular customer and highly recommend it!" - Jane D.</p>
+            </div>
+            <div>
+                <p>"I love the variety and freshness of the fruits and vegetables. The service is outstanding too!" - John S.</p>
+            </div>
+            <div>
+                <p>"Great place to shop for organic produce. The prices are fair and the quality is top-notch." - Emily R.</p>
+            </div>
+        </div>
+        <div class="admin-section" style="text-align: center;">
+            <a href="/admin_dashboard" class="button">Admin Dashboard</a>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages" style="text-align: center;">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

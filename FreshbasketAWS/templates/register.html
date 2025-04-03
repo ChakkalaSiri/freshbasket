@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Register</h1>
+        </header>
+        <nav class="main-menu">
+            <ul>
+                <li><a href="/home">Home</a></li>
+            </ul>
+        </nav>
+        <div class="form-container">
+            <form action="/register" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            
+                <label for="mobile">Mobile:</label>
+                <input type="text" id="mobile" name="mobile" required>
+            
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            
+                <label for="default_address">Default Address:</label>
+                <textarea id="default_address" name="default_address" required></textarea>
+            
+                <button type="submit">Register</button>
+            </form>
+            
+            <p>Already registered? <a href="/login">Login here</a>.</p>
+        </div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

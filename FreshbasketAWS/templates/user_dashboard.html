@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="content">
+        <h2>Your Previous Orders</h2>
+        
+        <!-- Flash messages display -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="notification {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Items</th>
+                    <th>Total Price</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.order_id }}</td>  <!-- Changed from order.id -->
+                    <td>{{ order.items }}</td>
+                    <td>${{ order.total_price }}</td>
+                    <td>
+                        {% if order.order_date %}
+                            {{ order.order_date.split('T')[0] }}  <!-- Format ISO date -->
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>{{ order.status }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">No orders found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
